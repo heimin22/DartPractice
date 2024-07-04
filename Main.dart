@@ -1,6 +1,6 @@
-late String name;
-late int yearBorn;
-late double favoriteNumber;
+late final String name;
+late final int yearBorn;
+late final double favoriteNumber;
 
 void main() {
   name = 'Fyke';
