@@ -1,10 +1,12 @@
 late String name;
+late int yearBorn;
+late double favoriteNumber;
 
 void main() {
   name = 'Fyke';
-  int yearBorn = 2004;
-  double favoriteNumber = 22.2;
-  List<String> nameLists = ['Fyke', 'Simon', 'V.', 'Tonel'];
+  yearBorn = 2004;
+  favoriteNumber = 22.2;
+  // List<String> nameLists = ['Fyke', 'Simon', 'V.', 'Tonel'];
   assert(yearBorn == 2004);
 
   if (name != null) {
