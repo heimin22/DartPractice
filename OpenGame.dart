@@ -12,15 +12,14 @@ List<String> websiteGames = [
   'https://www.xvideos.com/'
 ];
 
+Map<int, String> randomMapping = {};
 
 void main() {
   websiteRandomizer();
-  print("Pili ka ng number from 1 to 5: ");
   websiteChooser();
 }
 
 void websiteRandomizer() {
-  Map<int, String> randomMapping = {};
   List<int> numbers = List.generate(5, (i) => i + 1)..shuffle();
 
   for (int i = 0; i < websiteGames.length; i++) {
@@ -29,5 +28,41 @@ void websiteRandomizer() {
 }
 
 void websiteChooser() {
+  int? choice;
+  while (choice == null || !randomMapping.containsKey(choice)) {
+    stdout.write("Pili ka ng number from 1 to 5: ");
+    choice = int.tryParse(stdin.readLineSync()!);
+    if (choice == null || !randomMapping.containsKey(choice)) {
+      print('bawal yan lods, ulit ka.');
+    }
+  }
 
+  String url = randomMapping[choice]!;
+  print('Opening $url...');
+
+  String command;
+  List<String> arguments;
+  if (Platform.isWindows) {
+    command = 'start';
+    arguments = [url];
+  }
+  else if (Platform.isLinux) {
+    command = 'xdg-open';
+    arguments = [url];
+  }
+  else if (Platform.isMacOS) {
+    command = 'open';
+    arguments = [url];
+  }
+  else {
+    print('Unsupported operating system.');
+    return;
+  }
+
+  Process.run(command, arguments).then((ProcessResult results) {
+    print(results.stdout);
+    print(results.stderr);
+  }).catchError((e) {
+    print('Error occured: $e');
+  });
 }
