@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -16,7 +17,8 @@ Map<int, String> randomMapping = {};
 
 void main() {
   websiteRandomizer();
-  websiteChooser();
+  int countdownSeconds = 3;
+  websiteChooser(countdownSeconds);
 }
 
 void websiteRandomizer() {
@@ -27,7 +29,7 @@ void websiteRandomizer() {
   }
 }
 
-void websiteChooser() {
+void websiteChooser(int seconds) {
   int? choice;
   while (choice == null || !randomMapping.containsKey(choice)) {
     stdout.write("Pili ka ng number from 1 to 5: ");
@@ -38,25 +40,39 @@ void websiteChooser() {
   }
 
   String url = randomMapping[choice]!;
-  print('Opening $url...');
 
-  try {
-    if (Platform.isWindows) {
-      Process.run('cmd', ['/c', 'start', url]);
-    }
-    else if (Platform.isMacOS) {
-      Process.run('open', [url]);
-    }
-    else if (Platform.isLinux) {
-      Process.run('xdg-open', [url]);
+  int countDown = 3;
+
+  print('Ang website na napili mo ay...\n');
+
+  Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    if (countDown > 0) {
+      countDown--;
+      stdout.write('\r${countDown + 1}');
+      stdout.flush();
     }
     else {
-      print('Unsupported operating system');
-      return;
+      timer.cancel();
+      print('\n\npag yan bold maangas.');
+      try {
+        if (Platform.isWindows) {
+          Process.run('cmd', ['/c', 'start', url]);
+        }
+        else if (Platform.isMacOS) {
+          Process.run('open', [url]);
+        }
+        else if (Platform.isLinux) {
+          Process.run('xdg-open', [url]);
+        }
+        else {
+          print('Unsupported operating system');
+          return;
+        }
+        print('bomba');
+      }
+      catch (e) {
+        print('Error occured: $e');
+      }
     }
-    print('URL opened successfully');
-  }
-  catch (e) {
-    print('Error occured: $e');
-  }
+  });
 }
