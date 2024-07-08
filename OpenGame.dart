@@ -56,22 +56,22 @@ void websiteChooser() {
         if (Platform.isWindows) {
           Process.run('cmd', ['/c', 'start', url]);
           print('bomba');
-          repeatGame();
         }
         else if (Platform.isMacOS) {
           Process.run('open', [url]);
           print('bomba');
-          repeatGame();
         }
         else if (Platform.isLinux) {
           Process.run('xdg-open', [url]);
           print('bomba');
-          repeatGame();
         }
         else {
           print('Unsupported operating system');
           return;
         }
+        // Timer(Duration(seconds: 2), () {
+        //   repeatGame();
+        // });
       }
       catch (e) {
         print('Error occured: $e');
@@ -80,18 +80,18 @@ void websiteChooser() {
   });
 }
 
-void repeatGame() {
-  int? choice;
-
-  stdout.write('\nMaglalaro ka pa ba? (1 for kapag oo, 2 kapag hindi): ');
-  choice = int.tryParse(stdin.readLineSync()!);
-
-  if (choice == 1) {
-    main();
-  }
-  if (choice == 2) {
-    exit(0);
-  } else {
-    print('bawal yan pre');
-  }
-}
+// void repeatGame() {
+//   int? choice;
+//
+//   stdout.write('\nMaglalaro ka pa ba? (1 for kapag oo, 2 kapag hindi): ');
+//   choice = int.tryParse(stdin.readLineSync()!);
+//
+//   if (choice == 1) {
+//     main();
+//   }
+//   if (choice == 2) {
+//     exit(0);
+//   } else {
+//     print('bawal yan pre');
+//   }
+// }
