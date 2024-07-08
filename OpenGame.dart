@@ -40,29 +40,23 @@ void websiteChooser() {
   String url = randomMapping[choice]!;
   print('Opening $url...');
 
-  String command;
-  List<String> arguments;
-  if (Platform.isWindows) {
-    command = 'start';
-    arguments = [url];
+  try {
+    if (Platform.isWindows) {
+      Process.run('cmd', ['/c', 'start', url]);
+    }
+    else if (Platform.isMacOS) {
+      Process.run('open', [url]);
+    }
+    else if (Platform.isLinux) {
+      Process.run('xdg-open', [url]);
+    }
+    else {
+      print('Unsupported operating system');
+      return;
+    }
+    print('URL opened successfully');
   }
-  else if (Platform.isLinux) {
-    command = 'xdg-open';
-    arguments = [url];
-  }
-  else if (Platform.isMacOS) {
-    command = 'open';
-    arguments = [url];
-  }
-  else {
-    print('Unsupported operating system.');
-    return;
-  }
-
-  Process.run(command, arguments).then((ProcessResult results) {
-    print(results.stdout);
-    print(results.stderr);
-  }).catchError((e) {
+  catch (e) {
     print('Error occured: $e');
-  });
+  }
 }
