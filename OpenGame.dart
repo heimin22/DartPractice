@@ -5,19 +5,18 @@ late int randomNumber;
 late int chosenNumber;
 
 List<String> websiteGames = [
-  'https://i.pinimg.com/736x/c0/66/78/c066789311c873ac7a164d656d5911ae.jpg',
-  'https://i.pinimg.com/564x/75/fc/c6/75fcc6b11ec2e2a2a6b7163e676c2764.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGNmAU3b41s55t9KmnBlN2PeUMtNe-C3bmsROChdZlddBEeNWeETfe3SU5D6NqF0q4RTg&usqp=CAU',
-  'https://i.pinimg.com/originals/6b/fc/0d/6bfc0d953f2619c0b8bcfa8bad6c0e4b.gif',
-  'https://www.xvideos.com/'
+  'http://surl.li/kwtwjv',
+  'http://surl.li/pamdiw',
+  'http://surl.li/gxkhsf',
+  'http://surl.li/zrivel',
+  'http://surl.li/riuuvp'
 ];
 
 Map<int, String> randomMapping = {};
 
 void main() {
   websiteRandomizer();
-  int countdownSeconds = 3;
-  websiteChooser(countdownSeconds);
+  websiteChooser();
 }
 
 void websiteRandomizer() {
@@ -28,7 +27,7 @@ void websiteRandomizer() {
   }
 }
 
-void websiteChooser(int seconds) {
+void websiteChooser() {
   int? choice;
   while (choice == null || !randomMapping.containsKey(choice)) {
     stdout.write("Pili ka ng number from 1 to 5: ");
@@ -56,22 +55,43 @@ void websiteChooser(int seconds) {
       try {
         if (Platform.isWindows) {
           Process.run('cmd', ['/c', 'start', url]);
+          print('bomba');
+          repeatGame();
         }
         else if (Platform.isMacOS) {
           Process.run('open', [url]);
+          print('bomba');
+          repeatGame();
         }
         else if (Platform.isLinux) {
           Process.run('xdg-open', [url]);
+          print('bomba');
+          repeatGame();
         }
         else {
           print('Unsupported operating system');
           return;
         }
-        print('bomba');
       }
       catch (e) {
         print('Error occured: $e');
       }
     }
   });
+}
+
+void repeatGame() {
+  int? choice;
+
+  stdout.write('\nMaglalaro ka pa ba? (1 for kapag oo, 2 kapag hindi): ');
+  choice = int.tryParse(stdin.readLineSync()!);
+
+  if (choice == 1) {
+    main();
+  }
+  if (choice == 2) {
+    exit(0);
+  } else {
+    print('bawal yan pre');
+  }
 }
