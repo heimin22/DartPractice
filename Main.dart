@@ -1,5 +1,12 @@
 import 'dart:io';
 
+
 void main() {
-  print("My mamma always said, life is like a box of chocolate. You never know what you're gonna get");
+  stdout.write("Enter your name: ");
+  String? name = stdin.readLineSync();
+
+  stdout.write("\nEnter your age:");
+  int? age = int.tryParse(stdin.readLineSync()!);
+
+  print("${name} is ${age} years old");
 }
