@@ -1,9 +1,8 @@
+import 'dart:io';
+
 void main() {
-  int a = 2, b = 1;
+  List<int> integers = [1, 2, 3];
+  List<int> cubes = integers.map((int n) => n * n * n).toList();
 
-  print("Before ${a}");
-
-  a &= b;
-
-  print("After: ${b}");
+  cubes.forEach((cubedNumbers) => print(cubedNumbers));
 }
