@@ -1,5 +1,5 @@
 void main() {
-  int a = 2, b = 2;
+  int a = 2, b = 1;
 
   print("Before ${a}");
 
