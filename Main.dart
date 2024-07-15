@@ -1,8 +1,9 @@
 import 'dart:io';
 
 void main() {
-  List<int> integers = [1, 2, 3];
-  List<int> cubes = integers.map((int n) => n * n * n).toList();
+  Set<int> numbers = {};
 
-  cubes.forEach((cubedNumbers) => print(cubedNumbers));
+  numbers.addAll({1, 2 , 3});
+
+  numbers.forEach((numbersAdded) => stdout.write(numbersAdded));
 }
