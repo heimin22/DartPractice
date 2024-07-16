@@ -1,9 +1,10 @@
 import 'dart:io';
 
 void main() {
-  Set<int> numbers = {};
+  Map<String, int> namesNumbers = {
+    'Fyke' : 22,
+    'Simon' : 2
+  };
 
-  numbers.addAll({1, 2 , 3});
-
-  numbers.forEach((numbersAdded) => stdout.write(numbersAdded));
+  namesNumbers.forEach((k, v) => print("Names: ${k}, Numbers: ${v}"));
 }
