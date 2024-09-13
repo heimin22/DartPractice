@@ -78,7 +78,7 @@ State? solvePuzzle(List<List<int>> initial, List<List<int>> goal) {
   PriorityQueue<State> queue = PriorityQueue((a, b) => a.cost.compareTo(b.cost));
   Set<String> visited = {};
   int steps = 0; // bibilangin yung steps tapos maeexpand yung nodes
-  const stepsLimit = 10000;
+  const stepsLimit = 1000;
 
   // heuristic para sa initial state ni tropa
   int initialHeuristic = State.calculateHeuristic(initial,goal);
@@ -89,8 +89,11 @@ State? solvePuzzle(List<List<int>> initial, List<List<int>> goal) {
     State currentState = queue.removeFirst();
     steps++; // bilang bawat steps
 
+    print("Step $steps:");
+    printPuzzle(currentState.puzzle);
+
     if (steps >= stepsLimit) {
-      print("Step limit reached, di kaya boss, lagpas 10000 steps na.");
+      print("Step limit reached, di kaya boss, lagpas $stepsLimit steps na.");
       return null;
     }
 
