@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:math';
 
 class State {
   List<int> jugs;
@@ -118,11 +119,38 @@ void main() {
   // magtatanong kung ilan yung capacities nila
   List<int> capacities = [];
   for (int i = 0; i < n; i++) {
-    print("Ilan yung laman nung container ${i + 1}: ");
+    print("Ilan capacity nung container ${i + 1}: ");
     int capacity = int.parse(stdin.readLineSync()!);
     capacities.add(capacity);
   }
 
   // magtatanong kung ano yung initial state
+  print("Ano yung initial state natin boss (amount ng tubig sa mga jug): ");
+  List<int> initial = [];
+  for (int i = 0; i < n; i++) {
+    print("Gaano karami boss ${i + 1}: ");
+    int water = int.parse(stdin.readLineSync()!);
+    initial.add(water);
+  }
 
+  // magtatanong kung ano yung goal state
+  print("Ano yung goal state natin boss (amount nung desired na laman sa jug): ");
+  List<int> goal = [];
+  for (int i = 0; i < n; i++) {
+    print("Gaano karami boss ${i + 1}: ");
+    int water = int.parse(stdin.readLineSync()!);
+    goal.add(water);
+  }
+
+  // i-sosolve yung problem
+
+  State? solution = solve(initial, goal, capacities);
+
+  if (solution != null) {
+    print("Ito ang solusyon bossing:");
+    printSolution(solution);
+  }
+  else {
+    print("Wala boss di kaya");
+  }
 }
