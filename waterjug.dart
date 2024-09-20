@@ -1,13 +1,13 @@
 import 'dart:collection';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 
 class State {
   List<int> jugs;
   State? parent;
+  String action; // ito yung mag-eexplain ng actions
 
-  State(this.jugs, [this.parent]);
+  State(this.jugs, this.action, [this.parent]);
 
   // method para macheck if yung currect state ba is equal duon sa final state
   bool isGoal(List<int> goal) {
@@ -24,14 +24,22 @@ class State {
       if (jugs[i] != capacities[i]) {
         List<int> newJugs = List.from(jugs);
         newJugs[i] = capacities[i];
-        nextStates.add(State(newJugs, this));
+        nextStates.add(State(
+          newJugs,
+          "Filled jug ${i + 1} to its capacity (${capacities[i]}).",
+          this,
+        ));
       }
 
       // empty yung jug
       if (jugs[i] != 0) {
         List<int> newJugs = List.from(jugs);
         newJugs[i] = 0;
-        nextStates.add(State(newJugs, this));
+        nextStates.add(State(
+          newJugs,
+          "Emptied jug ${i + 1}.",
+          this,
+        ));
       }
 
       // maglalagay ng tubig from jug i sa jug j
@@ -41,7 +49,11 @@ class State {
           int transfer = min(jugs[i], capacities[j] - jugs[j]);
           newJugs[i] -= transfer;
           newJugs[j] += transfer;
-          nextStates.add(State(newJugs, this));
+          nextStates.add(State(
+            newJugs,
+            "Poured $transfer liters from jug ${i + 1} to jug ${j + 1}.",
+            this,
+          ));
         }
       }
     }
@@ -75,7 +87,7 @@ State? solve(List<int> initial, List<int> goal, List<int> capacities) {
   Queue<State> queue = Queue<State>();
   Set<State> visited = Set<State>();
 
-  State initialState = State(initial);
+  State initialState = State(initial, "Initial state.");
   queue.add(initialState);
   visited.add(initialState);
 
@@ -108,6 +120,8 @@ void printSolution(State state) {
 
   for (int i = path.length - 1; i >= 0; i--) {
     print("Jugs: ${path[i].jugs}");
+    print(path[i].action);
+    print("");
   }
 }
 
